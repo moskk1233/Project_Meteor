@@ -13,6 +13,7 @@ public class MyPanel extends JPanel {
     private final int meteorAmount;
     private final Image[] meteorImages;
     private final Meteor[] meteors;
+    private final Image bombImage;
 
     public int SPACE_OFFSET_X = 50;
     public int SPACE_OFFSET_Y = 80;
@@ -23,6 +24,10 @@ public class MyPanel extends JPanel {
 
         // sync ตัวแปร
         this.meteorAmount = meteorAmount;
+
+        // โหลดภาพระเบิด
+        URL bombImageURL = getClass().getResource("/images/bomb.gif");
+        this.bombImage = Toolkit.getDefaultToolkit().createImage(bombImageURL);
 
         // โหลดภาพอุกกาบาต
         this.meteorImages = new Image[this.meteorAmount];
@@ -49,6 +54,24 @@ public class MyPanel extends JPanel {
             meteorThread[i] = new MeteorThread(this.meteors[i], this);
             meteorThread[i].start();
         }
+
+        this.addMouseListener(new MeteorMouseAdapter(this.meteors, this));
+    }
+
+    public void startExplosion(Meteor meteor) {
+        new Thread(() -> {
+            meteor.setExploding(true);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+            meteor.setExploding(false);
+        }).start();
+    }
+
+    private void drawExplosion(Graphics g, int x, int y, int width, int height) {
+        g.drawImage(this.bombImage, x, y, width, height, this);
     }
 
     @Override
@@ -56,7 +79,6 @@ public class MyPanel extends JPanel {
         // วาดพื้นหลัง
         g.setColor(new Color(0));
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
-
         // วาดรูปอุกกาบาตแบบสุ่มตำแหน่ง
         g.setColor(Color.YELLOW);
         for (int i = 0; i < this.meteorAmount; i++) {
@@ -65,6 +87,13 @@ public class MyPanel extends JPanel {
             int meteorPosY = meteor.getY();
             int meteorWidth = meteor.getWidth();
             int meteorHeight = meteor.getHeight();
+
+            if (meteor.isDestroyed()) {
+                if (meteor.isExploding()) {
+                    drawExplosion(g, meteor.getExplodeX(), meteor.getExplodeY(), meteorWidth, meteorHeight);
+                }
+                continue;
+            }
 
             g.drawImage(this.meteorImages[i], meteorPosX, meteorPosY, meteorWidth, meteorHeight, this);
 

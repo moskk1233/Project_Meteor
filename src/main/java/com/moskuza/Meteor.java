@@ -5,10 +5,15 @@ import java.util.Random;
 public class Meteor {
     private int x;
     private int y;
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
     private int speed;
     private int direction;
+    private boolean isDestroyed = false;
+    private boolean isExploding = false;
+
+    private int explodeX = 0;
+    private int explodeY = 0;
 
     public static int MAX_SPEED = 10 + 1;
     public static int randomDirection() {
@@ -24,12 +29,24 @@ public class Meteor {
         this.direction = randomDirection();
     }
 
+    public int getExplodeX() {
+        return explodeX;
+    }
+
+    public int getExplodeY() {
+        return explodeY;
+    }
+
     public int getX() {
         return x;
     }
 
     public int getY() {
         return y;
+    }
+
+    public int getSpeed() {
+        return speed;
     }
 
     public int getWidth() {
@@ -40,9 +57,11 @@ public class Meteor {
         return height;
     }
 
-    public int getSpeed() { return speed; }
+    public boolean isDestroyed() {
+        return isDestroyed;
+    }
 
-    public int getDirection() { return direction; }
+    public boolean isExploding() { return isExploding; }
 
     public void move() {
         switch (this.direction) {
@@ -82,15 +101,17 @@ public class Meteor {
         this.y = y;
     }
 
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
     public void setSpeed(int speed) {
         this.speed = speed;
+    }
+
+    public void destroy() { this.isDestroyed = true; }
+
+    public void setExploding(boolean exploded) { this.isExploding = exploded; }
+
+    public void setExplodeX(int x) { this.explodeX = x; }
+
+    public void setExplodeY(int y) {
+        this.explodeY = y;
     }
 }
