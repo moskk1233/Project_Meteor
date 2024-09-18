@@ -40,8 +40,11 @@ public class MyPanel extends JPanel {
             // สุ่มตำแหน่งให้อุกกาบาต
             int randomX = new Random().nextInt(this.getWidth());
             int randomY = new Random().nextInt(this.getHeight());
+
+            #if DEBUG == "1"
             System.out.println("Meteor X: " + randomX);
             System.out.println("Meteor Y: " + randomY);
+            #endif
 
             // กำหนดค่าไม่ให้เกินขอบ
             randomX = Math.min(randomX, this.getWidth() - SPACE_OFFSET_X);
@@ -70,7 +73,10 @@ public class MyPanel extends JPanel {
             int meteorHeight = meteor.getHeight();
 
             g.drawImage(this.meteorImages[i], meteorPosX, meteorPosY, meteorWidth, meteorHeight, this);
+
+            #if DEBUG == "1"
             g.drawRect(meteorPosX, meteorPosY, meteorWidth, meteorHeight);
+            #endif
 
             for (int j = i + 1; j < this.meteorAmount; j++) {
                 Meteor otherMeteor = this.meteors[j];

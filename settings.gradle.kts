@@ -1,1 +1,1 @@
-rootProject.name = "Project_MeteorZ";
+rootProject.name = "MeteorZ";
