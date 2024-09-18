@@ -41,11 +41,6 @@ public class MyPanel extends JPanel {
             int randomX = new Random().nextInt(this.getWidth());
             int randomY = new Random().nextInt(this.getHeight());
 
-            #if DEBUG == "1"
-            System.out.println("Meteor X: " + randomX);
-            System.out.println("Meteor Y: " + randomY);
-            #endif
-
             // กำหนดค่าไม่ให้เกินขอบ
             randomX = Math.min(randomX, this.getWidth() - SPACE_OFFSET_X);
             randomY = Math.min(randomX, this.getHeight() - SPACE_OFFSET_Y);
@@ -76,6 +71,8 @@ public class MyPanel extends JPanel {
 
             #if DEBUG == "1"
             g.drawRect(meteorPosX, meteorPosY, meteorWidth, meteorHeight);
+            g.drawString("X: " + meteorPosX + " Y: " + meteorPosY, meteorPosX, meteorPosY - 5);
+            g.drawString("Speed: " + meteor.getSpeed(), meteorPosX, meteorPosY + meteorHeight + 15);
             #endif
 
             for (int j = i + 1; j < this.meteorAmount; j++) {
