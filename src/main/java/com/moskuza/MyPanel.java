@@ -68,7 +68,7 @@ public class MyPanel extends JPanel {
 
             g.drawImage(this.meteorImages[i], meteorPosX, meteorPosY, meteorWidth, meteorHeight, this);
 
-            #if DEBUG == "1"
+            #if DEBUG
             g.drawRect(meteorPosX, meteorPosY, meteorWidth, meteorHeight);
             g.drawString("X: " + meteorPosX + " Y: " + meteorPosY, meteorPosX, meteorPosY - 5);
             g.drawString("Speed: " + meteor.getSpeed(), meteorPosX, meteorPosY + meteorHeight + 15);

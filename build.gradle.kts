@@ -35,6 +35,9 @@ if (JavaVersion.current() != JavaVersion.VERSION_1_8 &&
     tasks.withType<JavaCompile> {
         // If you DO NOT define a module-info.java file:
         options.compilerArgs.add("-Xplugin:Manifold")
+        if (project.hasProperty("DEBUG")) {
+            options.compilerArgs.add("-ADEBUG");
+        }
     }
 }
 
