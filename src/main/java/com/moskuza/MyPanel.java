@@ -6,7 +6,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.io.File;
 import java.net.URL;
 import java.util.Random;
 
@@ -43,7 +42,7 @@ public class MyPanel extends JPanel {
 
             // กำหนดค่าไม่ให้เกินขอบ
             randomX = Math.min(randomX, this.getWidth() - SPACE_OFFSET_X);
-            randomY = Math.min(randomX, this.getHeight() - SPACE_OFFSET_Y);
+            randomY = Math.min(randomY, this.getHeight() - SPACE_OFFSET_Y);
 
             int meteorSpeed = new Random().nextInt(1, Meteor.MAX_SPEED);
             this.meteors[i] = new Meteor(randomX, randomY, 60, 60, meteorSpeed);
